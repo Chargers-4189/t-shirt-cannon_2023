@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.commands.DriveTrain;
 import frc.robot.subsystems.CANMotorControl;
+import frc.robot.subsystems.Canon;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,7 +22,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private CANMotorControl mControl = new CANMotorControl();
   private XboxController controller = new XboxController(0);
-  private DriveTrain drive = new DriveTrain(mControl, controller);
+  private Canon canon = new Canon();
+  private DriveTrain drive = new DriveTrain(mControl, controller, canon);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
