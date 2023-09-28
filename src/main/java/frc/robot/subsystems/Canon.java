@@ -12,9 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Canon extends SubsystemBase {
   /** Creates a new Canon. */
   private VictorSPX canon = new VictorSPX(5);
+  private VictorSPX solonoid = new VicorSPX(0);
   public Canon() {
+    
   }
-
+  public void fire (boolean f) {
+    canon.set(VictorSPXControlMode.PercentOutput,f);
+  }
+  
   public void move(double x){
     canon.set(VictorSPXControlMode.PercentOutput,x);
   }
