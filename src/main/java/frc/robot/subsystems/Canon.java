@@ -17,7 +17,7 @@ public class Canon extends SubsystemBase {
     
   }
   public void fire (boolean f) {
-    canon.set(VictorSPXControlMode.PercentOutput,f);
+    solonoid.set(VictorSPXControlMode.PercentOutput,f);
   }
   
   public void move(double x){
