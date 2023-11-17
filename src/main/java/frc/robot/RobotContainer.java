@@ -4,13 +4,16 @@
 
 package frc.robot;
 
-import frc.robot.commands.DriveTrain;
-import frc.robot.subsystems.CANMotorControl;
-import frc.robot.subsystems.Canon;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.CannonCommand;
+import frc.robot.commands.DriveTrain;
+import frc.robot.subsystems.CANMotorControl;
+import frc.robot.subsystems.CanonControl;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,14 +23,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private CANMotorControl mControl = new CANMotorControl();
-  private XboxController controller = new XboxController(0);
-  private Canon canon = new Canon();
-  private DriveTrain drive = new DriveTrain(mControl, controller, canon);
+  private ShuffleboardTab tab = Shuffleboard.getTab("T-Shirt Configuration");
+  private CANMotorControl mControl = new CANMotorControl(tab);
+  private CanonControl cControl = new CanonControl(tab);
+  private XboxController xboxdriver = new XboxController(0);
+  private XboxController xboxcannon = new XboxController(1);
+  private DriveTrain drivetrain = new DriveTrain(mControl, xboxdriver);
+  private CannonCommand cannonCommand = new CannonCommand(cControl, xboxcannon, drivetrain, tab);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    mControl.setDefaultCommand(drive);
+    mControl.setDefaultCommand(drivetrain);
+    cControl.setDefaultCommand(cannonCommand);
     configureBindings();
   }
 
